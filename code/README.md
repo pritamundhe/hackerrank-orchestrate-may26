@@ -15,36 +15,9 @@ It uses the following pipeline:
 
 ### Architecture Diagram
 
-```text
-support_tickets.csv
-       │
-       ▼
-┌─────────────────────────────────────────────┐
-│               main.py (entry point)         │
-└─────────────────────────────────────────────┘
-       │
-       ▼
-┌─────────────────────────────────────────────┐
-│              TriageAgent (agent.py)         │
-│                                             │
-│  ┌──────────────┐   ┌─────────────────────┐ │
-│  │ SafetyRouter │   │   CorpusLoader &    │ │
-│  │  (pre-filter)│──▶│   BM25Retriever     │ │
-│  │  escalation  │   │  (sparse RAG over   │ │
-│  │  + invalids  │   │   data/ corpus)     │ │
-│  └──────────────┘   └─────────────────────┘ │
-│                               │             │
-│  ┌──────────────┐             ▼             │
-│  │Classifier    │◀──┌─────────────────────┐ │
-│  │(product_area)│   │  ResponseBuilder    │ │
-│  └──────────────┘   │ (static overrides + │ │
-│                     │  corpus chunks)     │ │
-│                     └─────────────────────┘ │
-└─────────────────────────────────────────────┘
-       │
-       ▼
-support_tickets/output.csv
-```
+<p align="center">
+  <img src="arc.png" width="700"/>
+</p>
 
 ## Setup Instructions
 
